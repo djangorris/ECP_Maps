@@ -1,4 +1,6 @@
 ### MENTAL HEALTH ###
+selected_county <- "El Paso"
+clean_selected_county <- str_replace_all(selected_county, " ", "_")
 # Contains Psychology in specialty
 STATEWIDE_ALL_Psychology <- ALL_statewide_specialty_count %>%
   filter(Specialty %in% c("103 Psychology",
@@ -40,7 +42,7 @@ ggplot(data, aes(x = Carrier, y = Total, fill = Carrier)) +
   facet_wrap(~Specialty) +
   xlab(" ") +
   ylab(NULL) +
-  ggtitle("Colorado Mental Health Providers Grouped by Similar Specialty") +
+  ggtitle(str_c(selected_county, " Mental Health Providers Grouped by Similar Specialty")) +
   scale_fill_manual(values = cols) +
   labs(caption = "  Graphic by Colorado Health Insurance Insider / @lukkyjay                                                                                                                                                           Source: SERFF") +
   theme(plot.margin = margin(5, 5, 5, 5),
@@ -48,5 +50,5 @@ ggplot(data, aes(x = Carrier, y = Total, fill = Carrier)) +
         strip.text.x = element_text(size = 12),
         legend.position = "none",
         plot.caption = element_text(family = "Arial", size = 10, color = "grey", hjust = 0.5)) +
-  ggsave(filename = paste0(here("/"), "Plots/statewide_multi_specialty.png"),
+  ggsave(filename = paste0(here("/"), "Plots/", clean_selected_county, "_multi_specialty.png"),
          width = 12, height = 8, dpi = 1200)
