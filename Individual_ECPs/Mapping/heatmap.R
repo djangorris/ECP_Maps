@@ -3,15 +3,27 @@ col_lon <- c(-109, -102)
 col_lat <- c(36.86204, 41.03)
 bbox <- make_bbox(col_lon, col_lat, f=0.05)
 co_map <- get_map(bbox, maptype="toner-lite", source = "stamen")
-# CARRIER COLORS
-cols <- c("Anthem BCBS" = "blue",
-          "Bright" = "deeppink3",
-          "Cigna" = "forestgreen",
-          "Denver Health" = "navyblue",
-          "Friday" = "violetred4",
-          "Kaiser" = "deepskyblue2",
-          "RMHP" = "darkorange")
+# FILTER CATEGORY
+CO_all_medical_carriers_FAMILY_PLANNING <- filter(CO_all_medical_carriers, ECP_Category == "Family Planning Providers")
 # DISPLAY MAP AND ADD DATA POINTS
-ggmap(co_map) +
-  geom_point(aes(lon, lat, color = Carrier), shape = 21, data = CO_all_medical_carriers, position=position_jitter(w = 0.002, h = 0.002)) +
-  scale_color_manual(name = "Carrier", values = cols)
+ggmap(co_map, extent = "device") +
+  geom_density2d(data = CO_all_medical_carriers_FAMILY_PLANNING,
+                 aes(x = lon, y = lat),
+                 size = 0.3) +
+  stat_density2d(data = CO_all_medical_carriers_FAMILY_PLANNING,
+                 aes(x = lon, y = lat, fill = ..level.., alpha = ..level..),
+                 size = 0.01,
+                 bins = 10,
+                 geom = "polygon") +
+  scale_fill_gradient(low = "red", high = "green") +
+  scale_alpha(range=c(0,1), limits=c(0,5)) +
+  facet_wrap(~Carrier, ncol = 3) +
+  xlab(" ") +
+  ylab(NULL) +
+  ggtitle("Colorado Statewide Family Planning Essential Community Providers") +
+  labs(caption = "  Graphic by Colorado Health Insurance Insider / @lukkyjay                                                                                                                                                           Source: SERFF") +
+  theme(plot.margin = margin(5, 5, 5, 5),
+        plot.title = element_text(family = "Trebuchet MS", color="#666666", face="bold", size=18, hjust=0),
+        legend.position = "none",
+        plot.caption = element_text(family = "Arial", size = 10, color = "grey", hjust = 0.5)) +
+  ggsave(filename = "Individual_ECPs/Plots/heatmap_family_planning.png", width = 12, height = 8, dpi = 1200)
