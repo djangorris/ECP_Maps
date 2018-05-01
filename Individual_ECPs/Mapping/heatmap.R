@@ -4,7 +4,8 @@ col_lat <- c(36.86204, 41.03)
 bbox <- make_bbox(col_lon, col_lat, f=0.05)
 co_map <- get_map(bbox, maptype="toner-lite", source = "stamen")
 # FILTER CATEGORY
-CO_all_medical_carriers_FAMILY_PLANNING <- filter(CO_all_medical_carriers, ECP_Category == "Family Planning Providers")
+CO_all_medical_carriers_FAMILY_PLANNING <- filter(CO_all_medical_carriers,
+                                                  ECP_Category == "Family Planning Providers")
 # DISPLAY MAP AND ADD DATA POINTS
 ggmap(co_map, extent = "device") +
   geom_density2d(data = CO_all_medical_carriers_FAMILY_PLANNING,
@@ -17,6 +18,10 @@ ggmap(co_map, extent = "device") +
                  geom = "polygon") +
   scale_fill_gradient(low = "red", high = "green") +
   scale_alpha(range=c(0,1), limits=c(0,5)) +
+  geom_point(aes(lon, lat, color = "red"),
+             shape = 21,
+             data = CO_all_medical_carriers_FAMILY_PLANNING,
+             position = position_jitter(w = 0.002, h = 0.002)) +
   facet_wrap(~Carrier, ncol = 3) +
   xlab(" ") +
   ylab(NULL) +
