@@ -4,16 +4,16 @@ col_lat <- c(36.86204, 41.03)
 bbox <- make_bbox(col_lon, col_lat, f=0.05)
 co_map <- get_map(bbox, maptype="toner-lite", source = "stamen")
 # FILTER CATEGORY
-CO_all_medical_carriers_FAMILY_PLANNING <- filter(CO_all_medical_carriers,
+CO_all_medical_facility_carriers_FAMILY_PLANNING <- filter(CO_all_medical_facility_carriers,
                                                   ECP_Category == "Federally Qualified Health Centers")
 CO_all_carrier_count_FAMILY_PLANNING <- filter(CO_all_carrier_count,
                                                ECP_Category == "Federally Qualified Health Centers")
 # DISPLAY MAP AND ADD DATA POINTS
 ggmap(co_map, extent = "device") +
-  geom_density2d(data = CO_all_medical_carriers_FAMILY_PLANNING,
+  geom_density2d(data = CO_all_medical_facility_carriers_FAMILY_PLANNING,
                  aes(x = lon, y = lat),
                  size = 0.3) +
-  stat_density2d(data = CO_all_medical_carriers_FAMILY_PLANNING,
+  stat_density2d(data = CO_all_medical_facility_carriers_FAMILY_PLANNING,
                  aes(x = lon, y = lat, fill = ..level.., alpha = ..level..),
                  size = 0.01,
                  bins = 10,
@@ -22,7 +22,7 @@ ggmap(co_map, extent = "device") +
   scale_alpha(range=c(0,1), limits=c(0,5)) +
   geom_point(aes(lon, lat, color = "red"),
              shape = 21,
-             data = CO_all_medical_carriers_FAMILY_PLANNING,
+             data = CO_all_medical_facility_carriers_FAMILY_PLANNING,
              position = position_jitter(w = 0.002, h = 0.002)) +
   facet_wrap(~Carrier, ncol = 3) +
   xlab(" ") +

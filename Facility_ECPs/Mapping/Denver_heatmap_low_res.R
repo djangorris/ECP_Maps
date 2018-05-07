@@ -1,19 +1,19 @@
 # DEFINING THE MAP
-col_lon <- c(-109, -102)
-col_lat <- c(36.86204, 41.03)
+col_lon <- c(-106.2, -103.8)
+col_lat <- c(38.5, 40.8)
 bbox <- make_bbox(col_lon, col_lat, f=0.05)
-co_map <- get_map(bbox, maptype="toner-lite", source = "stamen")
+denver_map <- get_map(bbox, maptype="toner-lite", source = "stamen")
 # FILTER CATEGORY
-CO_all_medical_carriers_FAMILY_PLANNING <- filter(CO_all_medical_carriers,
-                                                  ECP_Category == "Federally Qualified Health Centers")
+CO_all_medical_facility_carriers_FAMILY_PLANNING <- filter(CO_all_medical_facility_carriers,
+                                                  ECP_Category == "Family Planning Providers")
 CO_all_carrier_count_FAMILY_PLANNING <- filter(CO_all_carrier_count,
-                                               ECP_Category == "Federally Qualified Health Centers")
+                                               ECP_Category == "Family Planning Providers")
 # DISPLAY MAP AND ADD DATA POINTS
-ggmap(co_map, extent = "device") +
-  geom_density2d(data = CO_all_medical_carriers_FAMILY_PLANNING,
+ggmap(denver_map, extent = "device") +
+  geom_density2d(data = CO_all_medical_facility_carriers_FAMILY_PLANNING,
                  aes(x = lon, y = lat),
                  size = 0.3) +
-  stat_density2d(data = CO_all_medical_carriers_FAMILY_PLANNING,
+  stat_density2d(data = CO_all_medical_facility_carriers_FAMILY_PLANNING,
                  aes(x = lon, y = lat, fill = ..level.., alpha = ..level..),
                  size = 0.01,
                  bins = 10,
@@ -22,16 +22,16 @@ ggmap(co_map, extent = "device") +
   scale_alpha(range=c(0,1), limits=c(0,5)) +
   geom_point(aes(lon, lat, color = "red"),
              shape = 21,
-             data = CO_all_medical_carriers_FAMILY_PLANNING,
+             data = CO_all_medical_facility_carriers_FAMILY_PLANNING,
              position = position_jitter(w = 0.002, h = 0.002)) +
   facet_wrap(~Carrier, ncol = 3) +
   xlab(" ") +
   ylab(NULL) +
-  ggtitle("2018 Colorado Statewide Federally Qualified Health Centers") +
-  labs(caption = "  Graphic by Colorado Health Insurance Insider / @lukkyjay                                                                                                Source: SERFF") +
+  ggtitle("2018 Front Range Family Planning Providers") +
+  labs(caption = "  Graphic by Colorado Health Insurance Insider / @lukkyjay                                                                                         Source: SERFF") +
   theme(plot.margin = margin(5, 5, 5, 5),
         plot.title = element_text(family = "Trebuchet MS", color="#666666", face="bold", size=18, hjust=0),
         strip.text.x = element_text(size = 12),
         legend.position = "none",
         plot.caption = element_text(family = "Arial", size = 10, color = "grey", hjust = 0.5)) +
-  ggsave(filename = "Individual_ECPs/Plots/heatmap_statewide_fed_qualified.png", width = 12, height = 8, dpi = 1200)
+  ggsave(filename = "Individual_ECPs/Plots/front_range_heatmap_family_planning.png", width = 12, height = 8, dpi = 1200)
