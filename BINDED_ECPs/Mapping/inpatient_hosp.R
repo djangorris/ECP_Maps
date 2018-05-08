@@ -20,7 +20,8 @@ ggmap(co_map, extent = "device") +
   scale_alpha(range=c(0,1), limits=c(0,5)) +
   geom_point(aes(lon, lat, color = "green"),
              shape = 21,
-             size = 10,
+             stroke = 10,
+             size = 9,
              fill = "green",
              alpha = 0.5,
              data = CO_ALL_ECP_BIND_INPATIENT_HOSP,
