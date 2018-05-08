@@ -5,6 +5,8 @@ install.packages('purrr')
 install.packages("stringr")
 install.packages("magick")
 install.packages("here")
+install.packages("extrafont") # fonts for plots
+
 library(readxl)
 library(tidyverse)
 library(ggmap)
@@ -15,9 +17,9 @@ library(stringr)
 library(magick)
 library(here)
 library(magrittr)
-
-install.packages("extrafont")
 library(extrafont)
+
+
 font_import() # import all your fonts
 fonts() #get a list of fonts
 fonttable()
