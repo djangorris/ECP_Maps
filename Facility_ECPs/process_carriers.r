@@ -23,7 +23,7 @@ for (i in 1:length(files)) {
   facility_ecps$ECP_Category <- ifelse(facility_ecps$ECP_Category %in% "Other ECP Providers", facility_ecps$Facility_Type, facility_ecps$ECP_Category)
   # SEPARATE COLLAPSED CATEGORIES INTO MULTIPLE ROWS
   facility_ecps <- separate_rows(facility_ecps, ECP_Category, sep = ",", convert = TRUE)
-  # SEPARATE DENTAL facility_ecps FROM MEDICAL facility_ecps
+  # SEPARATE DENTAL ONLY facility_ecps FROM MEDICAL facility_ecps (MAY CONTAIN DENTAL AS WELL)
   dental_facility_ecps <- filter(facility_ecps, ECP_Category %in% "Dental Providers")
   medical_facility_ecps <- filter(facility_ecps, !ECP_Category %in% "Dental Providers")
   # COUNT THE NUMBER OF facility_ecps IN EACH CATEGORY STATEWIDE

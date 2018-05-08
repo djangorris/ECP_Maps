@@ -15,3 +15,10 @@ library(stringr)
 library(magick)
 library(here)
 library(magrittr)
+
+install.packages("extrafont")
+library(extrafont)
+font_import() # import all your fonts
+fonts() #get a list of fonts
+fonttable()
+fonttable()[40:45,] # very useful table listing the family name, font name etc
