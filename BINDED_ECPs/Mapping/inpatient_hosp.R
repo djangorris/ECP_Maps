@@ -8,39 +8,29 @@ CO_ALL_ECP_BIND_INPATIENT_HOSP <- filter(CO_ALL_ECP_BIND,
                                                   ECP_Category == "Inpatient Hospitals (other than children's hospitals)")
 # DISPLAY MAP AND ADD DATA POINTS
 ggmap(co_map, extent = "device") +
-  geom_density2d(data = CO_ALL_ECP_BIND_INPATIENT_HOSP,
-                 aes(x = lon, y = lat),
-                 size = 0.3) +
-  stat_density2d(data = CO_ALL_ECP_BIND_INPATIENT_HOSP,
-                 aes(x = lon, y = lat, fill = ..level.., alpha = ..level..),
-                 size = 0.01,
-                 bins = 10,
-                 geom = "polygon") +
-  scale_fill_gradient(low = "red", high = "green") +
+  # geom_density2d(data = CO_ALL_ECP_BIND_INPATIENT_HOSP,
+  #                aes(x = lon, y = lat),
+  #                size = 0.3) +
+  # stat_density2d(data = CO_ALL_ECP_BIND_INPATIENT_HOSP,
+  #                aes(x = lon, y = lat, fill = ..level.., alpha = ..level..),
+  #                size = 0.01,
+  #                bins = 10,
+  #                geom = "polygon") +
+  scale_fill_gradient(low = "green", high = "green4") +
   scale_alpha(range=c(0,1), limits=c(0,5)) +
-  geom_point(aes(lon, lat, color = "green"),
+  geom_point(aes(lon, lat),
              shape = 21,
-             stroke = 10,
-             size = 9,
-             fill = "green",
+             stroke = 16,
+             size = 1,
+             color = "green",
+             fill = "green4",
              alpha = 0.5,
              data = CO_ALL_ECP_BIND_INPATIENT_HOSP,
              position = position_jitter(w = 0.002, h = 0.002)) +
   facet_wrap(~Carrier, ncol = 3) +
   xlab(" ") +
   ylab(NULL) +
-  ggtitle("2018 Colorado Essential Community Inpatient Hospitals (other than children's hospitals)") +
-  labs(caption = "\n\n  Graphic by Colorado Health Insurance Insider | @lukkyjay                                             Source: SERFF") +
-  theme(plot.margin = margin(5, 5, 5, 5),
-        plot.title = element_text(family = "Arial Narrow",
-                                  color="grey10",
-                                  size = 18,
-                                  hjust=0),
-        strip.text.x = element_text(size = 14,
-                                    face = "bold"),
-        legend.position = "none",
-        plot.caption = element_text(family = "Arial",
-                                    size = 12,
-                                    color = "grey50",
-                                    hjust = 0.5)) +
+  ggtitle("2018 Colorado ECP Inpatient Hospitals (other than children's hospitals)") +
+  labs(caption = "\n\n  Graphic by Colorado Health Insurance Insider | @lukkyjay                       Source: SERFF") +
+  theme_ECP_maps +
   ggsave(filename = "BINDED_ECPs/Plots/INPATIENT_HOSP.png", width = 9, height = 6, dpi = 1200)

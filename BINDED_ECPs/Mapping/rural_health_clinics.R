@@ -4,14 +4,14 @@ col_lat <- c(36.86204, 41.03)
 bbox <- make_bbox(col_lon, col_lat, f=0.05)
 co_map <- get_map(bbox, maptype="toner-lite", source = "stamen")
 # FILTER CATEGORY
-CO_ALL_ECP_BIND_OUTPATIENT_CLINICS <- filter(CO_ALL_ECP_BIND,
-                                                  ECP_Category == "Outpatient Hospital Clinics")
+CO_ALL_ECP_BIND_RURAL_HEALTH <- filter(CO_ALL_ECP_BIND,
+                                                  ECP_Category == "Rural Health Clinics")
 # DISPLAY MAP AND ADD DATA POINTS
 ggmap(co_map, extent = "device") +
-  # geom_density2d(data = CO_ALL_ECP_BIND_OUTPATIENT_CLINICS,
+  # geom_density2d(data = CO_ALL_ECP_BIND_RURAL_HEALTH,
   #                aes(x = lon, y = lat),
   #                size = 0.3) +
-  # stat_density2d(data = CO_ALL_ECP_BIND_OUTPATIENT_CLINICS,
+  # stat_density2d(data = CO_ALL_ECP_BIND_RURAL_HEALTH,
   #                aes(x = lon, y = lat, fill = ..level.., alpha = ..level..),
   #                size = 0.01,
   #                bins = 10,
@@ -25,12 +25,12 @@ ggmap(co_map, extent = "device") +
              color = "green",
              fill = "green4",
              alpha = 0.2,
-             data = CO_ALL_ECP_BIND_OUTPATIENT_CLINICS,
+             data = CO_ALL_ECP_BIND_RURAL_HEALTH,
              position = position_jitter(w = 0.002, h = 0.002)) +
   facet_wrap(~Carrier, ncol = 4) +
   xlab(" ") +
   ylab(NULL) +
-  ggtitle("2018 Colorado ECP Outpatient Hospital Clinics") +
-  labs(caption = "\n\n  Graphic by Colorado Health Insurance Insider | @lukkyjay                       Source: SERFF") +
+  ggtitle('2018 Colorado Essential Community Rural Health Clinics') +
+  labs(caption = "\n\n  Graphic by Colorado Health Insurance Insider | @lukkyjay                                             Source: SERFF") +
   theme_ECP_maps +
-  ggsave(filename = "BINDED_ECPs/Plots/OUTPATIENT_CLINICS.png", width = 9, height = 5, dpi = 1200)
+  ggsave(filename = "BINDED_ECPs/Plots/RURAL_HEALTH.png", width = 9, height = 5, dpi = 1200)
