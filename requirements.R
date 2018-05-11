@@ -30,8 +30,8 @@ theme_ECP_maps <- theme(plot.margin = margin(10, 10, 10, 10),
                              #                            face = "bold"), # Carrier name label on bar charts
                              # axis.text.y = element_text(size = 12,
                              #                            face = "bold"), # Y axis label on charts
-                             # strip.text.x = element_text(size = 14,
-                             #                             face = "bold"), # Facet label
+                             strip.text.x = element_text(size = 14,
+                                                         face = "bold"), # Facet label
                              panel.spacing.x=unit(0.2, "lines"),
                              panel.spacing.y=unit(0.5, "lines"),
                              legend.position = "none",

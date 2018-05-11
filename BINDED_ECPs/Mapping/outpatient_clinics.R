@@ -24,13 +24,13 @@ ggmap(co_map, extent = "device") +
              size = 1,
              color = "green",
              fill = "green4",
-             alpha = 0.2,
+             alpha = 0.3,
              data = CO_ALL_ECP_BIND_OUTPATIENT_CLINICS,
              position = position_jitter(w = 0.002, h = 0.002)) +
   facet_wrap(~Carrier, ncol = 4) +
   xlab(" ") +
   ylab(NULL) +
   ggtitle("2018 Colorado ECP Outpatient Hospital Clinics") +
-  labs(caption = "\n\n  Graphic by Colorado Health Insurance Insider | @lukkyjay                       Source: SERFF") +
+  labs(caption = "\n\n  Graphic by Colorado Health Insurance Insider | @lukkyjay                                                                                                 Source: SERFF") +
   theme_ECP_maps +
   ggsave(filename = "BINDED_ECPs/Plots/OUTPATIENT_CLINICS.png", width = 9, height = 5, dpi = 1200)
